@@ -17,8 +17,8 @@ program
   .option('-d, --debug', '是否开启调试', false)
   .option('-e, --env <env>', '获取环境变量');
 
-// 获取配置项
-const options = program.opts();
+// // 获取配置项
+// const options = program.opts();
 
 // 注册命令
 // 1. command 注册命令
@@ -47,6 +47,16 @@ service
     console.log('stop the service');
   });
 program.addCommand(service);
+
+program
+  .command('install [name]', 'install a package', {
+    // 默认是：fec-install， 可以配置重定向命令为：fec-add
+    // 这个可以实现多个脚手架之间串连的功能，a执行调用b
+    executableFile: 'fec-add',
+    isDefault: false,
+    hidden: true,
+  })
+  .alias('i');
 
 // 命令行参数自动匹配
 program
